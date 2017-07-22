@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="//unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
+    <script src="//unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
+</head>
+
+<body>
+    <div id='map' style="width: 600px;height: 550px"></div>
+    <script>
+        var map = L.map('map').setView([16, 100], 6);
+
+        var googleStandard = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&hl=th', {
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+        var googleStreet = L.tileLayer('http://{s}.google.com/vt/lyrs=h&x={x}&y={y}&z={z}&hl=th', {
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+        var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&hl=th', {
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+        var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+        var googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=t&x={x}&y={y}&z={z}&hl=th', {
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+        var basemap = {
+            'ถนน': googleStandard.addTo(map),
+            'ถนนอย่างเดียว': googleStreet,
+            'ถนน+ดาวเทียม': googleHybrid,
+            'ดาวเทียม': googleSat,
+            'ภูมิประเทศ': googleTerrain
+        };
+        L.control.layers(basemap).addTo(map);
+    </script>
+</body>
+
+</html>

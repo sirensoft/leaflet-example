@@ -38,6 +38,7 @@
             };
             directionsService.route(directionsRequest, function(response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
+                    console.log(response);
                     layer_line.remove();
                     var line = polyline.toGeoJSON(response.routes[0].overview_polyline);
                     layer_line.setGeoJSON(line)

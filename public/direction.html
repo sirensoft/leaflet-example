@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="//unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
+    <script src="//unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiMiQFGG0YZrDP--XiSr45tPtizB3e84">
+    </script>
+</head>
+
+<body>
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="./lib/polyline.js"></script>
+    <script src="//npmcdn.com/@turf/turf/turf.min.js"></script>
+    <div id='map' style="width: 600px;height: 450px"></div>
+    <script>
+        var map = L.map('map').setView([16, 100], 6);
+
+        var googleStandard = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&hl=th', {
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+
+        var basemap = {
+            'ถนน': googleStandard.addTo(map),
+
+        };
+
+        var start_coords = '16,100';
+        var stop_coords = '16.59,100.344';
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRequest = {
+            origin: start_coords,
+            destination: stop_coords,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC
+        };
+        directionsService.route(directionsRequest, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                var line = polyline.toGeoJSON(response.routes[0].overview_polyline);
+                L.geoJSON(line, {
+                    'weight': 5,
+                    'dashArray': 3
+                }).addTo(map)
+
+            } else {
+                //Error has occured
+            }
+        })
+
+
+
+
+
+        L.control.layers(basemap).addTo(map);
+    </script>
+</body>
+
+</html>

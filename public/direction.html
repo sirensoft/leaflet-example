@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="//unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
-    <script src="//unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
+    <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiMiQFGG0YZrDP--XiSr45tPtizB3e84">
     </script>
 </head>
@@ -12,40 +13,73 @@
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="./lib/polyline.js"></script>
     <script src="//npmcdn.com/@turf/turf/turf.min.js"></script>
-    <div id='map' style="width: 600px;height: 450px"></div>
+    <div id='map' style="width: 800px;height: 600px"></div>
     <script>
-        var map = L.map('map').setView([16, 100], 6);
+        L.mapbox.accessToken = 'pk.eyJ1IjoidGVobm5uIiwiYSI6ImNpZzF4bHV4NDE0dTZ1M200YWxweHR0ZzcifQ.lpRRelYpT0ucv1NN08KUWQ';
+        var map = L.mapbox.map('map').setView([16, 100], 6);
 
         var googleStandard = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&hl=th', {
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         });
 
         var basemap = {
-            'ถนน': googleStandard.addTo(map),
-
+            'ถนน': googleStandard.addTo(map)
         };
 
-        var start_coords = '16,100';
-        var stop_coords = '16.59,100.344';
-        var directionsService = new google.maps.DirectionsService();
-        var directionsRequest = {
-            origin: start_coords,
-            destination: stop_coords,
-            travelMode: google.maps.DirectionsTravelMode.DRIVING,
-            unitSystem: google.maps.UnitSystem.METRIC
-        };
-        directionsService.route(directionsRequest, function(response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                var line = polyline.toGeoJSON(response.routes[0].overview_polyline);
-                L.geoJSON(line, {
-                    'weight': 5,
-                    'dashArray': 3
-                }).addTo(map)
+        var layer_line = L.mapbox.featureLayer();
 
-            } else {
-                //Error has occured
-            }
-        })
+        var direction = function(origin, destination) {
+            var directionsService = new google.maps.DirectionsService();
+            var directionsRequest = {
+                origin: origin,
+                destination: destination,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING,
+                unitSystem: google.maps.UnitSystem.METRIC
+            };
+            directionsService.route(directionsRequest, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    layer_line.remove();
+                    var line = polyline.toGeoJSON(response.routes[0].overview_polyline);
+                    layer_line.setGeoJSON(line)
+                        .setStyle({
+                            weight: 5,
+                            color: 'blue'
+                        }).addTo(map);
+                    // map.fitBounds(layer_line.getBounds());
+
+                } else {
+                    alert(status);
+                }
+            })
+        };
+
+        var a = L.marker([16, 100], {
+            'draggable': 'true',
+            icon: L.mapbox.marker.icon({
+                'marker-symbol': 'a'
+            })
+        }).addTo(map).on('dragend', function(e) {
+            var lat = e.target.getLatLng().lat;
+            var lng = e.target.getLatLng().lng;
+            var origin = lat + "," + lng;
+            var destination = b.getLatLng().lat + "," + b.getLatLng().lng;
+            direction(origin, destination);
+        });
+
+        var b = L.marker([16.59, 100.344], {
+            'draggable': 'true',
+            icon: L.mapbox.marker.icon({
+                'marker-symbol': 'b'
+            })
+        }).addTo(map).on('dragend', function(e) {
+            var lat = e.target.getLatLng().lat;
+            var lng = e.target.getLatLng().lng;
+            var destination = lat + "," + lng;
+            var origin = a.getLatLng().lat + "," + a.getLatLng().lng;
+            direction(origin, destination);
+        });
+
+
 
 
 

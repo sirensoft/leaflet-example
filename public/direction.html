@@ -37,8 +37,18 @@
             return new Promise(function(resolve, reject) {
                 directionsService.route(directionsRequest, function(response, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
-                        var data_encode = response.routes[0].overview_polyline;
-                        resolve(data_encode)
+                        var route = response.routes[0].overview_polyline;
+                        var descript = response.routes[0].legs[0];
+                        //console.log(descript)
+                        var data = {
+                            route: route,
+                            descript: {
+                                distance: descript.distance.text,
+                                duration: descript.duration.text
+                            }
+
+                        };
+                        resolve(data)
                     } else {
                         reject("ผิดพลาด:" + status)
                     }
@@ -48,7 +58,7 @@
 
         direction('เแม่ฮ่องสอน', 'นราธิวาส').then(function(result) {
             console.log(result)
-            var json_line = polyline.toGeoJSON(result);
+            var json_line = polyline.toGeoJSON(result.route);
 
             var line_layer = L.mapbox.featureLayer(json_line).setStyle({
                 weight: 5,
@@ -62,7 +72,7 @@
 
         direction('รพ.สต.พระธาตุขิงแกง อ.จุน', 'โรงพยาบาลภูมิพล').then(function(result) {
             console.log(result)
-            var json_line = polyline.toGeoJSON(result);
+            var json_line = polyline.toGeoJSON(result.route);
             var line_layer = L.mapbox.featureLayer(json_line).setStyle({
                 weight: 5,
                 color: 'lime',
@@ -75,7 +85,7 @@
 
         direction('13.9345,102.93455', 'พิษณุโลก').then(function(result) {
             console.log(result)
-            var json_line = polyline.toGeoJSON(result);
+            var json_line = polyline.toGeoJSON(result.route);
             var line_layer = L.mapbox.featureLayer(json_line).setStyle({
                 weight: 5,
                 color: 'red',

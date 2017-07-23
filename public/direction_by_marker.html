@@ -39,10 +39,20 @@
             return new Promise(function(resolve, reject) {
                 directionsService.route(directionsRequest, function(response, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
-                        var data_encode = response.routes[0].overview_polyline;
-                        resolve(data_encode)
+                        var route = response.routes[0].overview_polyline;
+                        var descript = response.routes[0].legs[0];
+                        //console.log(descript)
+                        var data = {
+                            route: route,
+                            descript: {
+                                distance: descript.distance.text,
+                                duration: descript.duration.text
+                            }
+
+                        };
+                        resolve(data)
                     } else {
-                        reject(status)
+                        reject("ผิดพลาด:" + status)
                     }
                 })
             });
@@ -59,13 +69,14 @@
             var origin = lat + "," + lng;
             var destination = b.getLatLng().lat + "," + b.getLatLng().lng;
             direction(origin, destination).then(function(result) {
-                var json_line = polyline.toGeoJSON(result);
+                var json_line = polyline.toGeoJSON(result.route);
                 layer_line.remove();
                 layer_line.setGeoJSON(json_line)
                     .setStyle({
                         weight: 5,
                         color: 'blue'
                     }).addTo(map)
+                console.log(result.descript.distance + " ," + result.descript.duration)
             }, function(err) {
                 alert(err)
             });
@@ -83,13 +94,14 @@
             var destination = lat + "," + lng;
             var origin = a.getLatLng().lat + "," + a.getLatLng().lng;
             direction(origin, destination).then(function(result) {
-                var json_line = polyline.toGeoJSON(result);
+                var json_line = polyline.toGeoJSON(result.route);
                 layer_line.remove();
                 layer_line.setGeoJSON(json_line)
                     .setStyle({
                         weight: 5,
                         color: 'blue'
                     }).addTo(map)
+                console.log(result.descript.distance + " ," + result.descript.duration)
             }, function(err) {
                 alert(err)
             });

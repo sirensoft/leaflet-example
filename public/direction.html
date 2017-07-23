@@ -46,7 +46,7 @@
             });
         };
 
-        direction('เชียงราย', 'นราธิวาส').then(function(result) {
+        direction('เแม่ฮ่องสอน', 'นราธิวาส').then(function(result) {
             console.log(result)
             var json_line = polyline.toGeoJSON(result);
 
@@ -58,7 +58,7 @@
             controlLayer.addOverlay(line_layer, 'เส้นทาง1')
         });
 
-        direction('รพ.สต.นาทม อ.นาทม', 'โรงพยาบาลภูมิพล').then(function(result) {
+        direction('รพ.สต.พระธาตุขิงแกง อ.จุน', 'โรงพยาบาลภูมิพล').then(function(result) {
             console.log(result)
             var json_line = polyline.toGeoJSON(result);
             var line_layer = L.mapbox.featureLayer(json_line).setStyle({

@@ -56,6 +56,8 @@
                 dashArray: 3
             }).addTo(map);
             controlLayer.addOverlay(line_layer, 'เส้นทาง1')
+        }, function(err) {
+            alert(err)
         });
 
         direction('รพ.สต.พระธาตุขิงแกง อ.จุน', 'โรงพยาบาลภูมิพล').then(function(result) {
@@ -67,6 +69,8 @@
                 dashArray: 3
             }).addTo(map);
             controlLayer.addOverlay(line_layer, 'เส้นทาง2')
+        }, function(err) {
+            alert(err)
         });
 
         direction('13.9345,102.93455', 'พิษณุโลก').then(function(result) {
@@ -78,6 +82,8 @@
                 dashArray: 3
             }).addTo(map);
             controlLayer.addOverlay(line_layer, 'เส้นทาง3')
+        }, function(err) {
+            alert(err)
         });
     </script>
 </body>

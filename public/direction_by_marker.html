@@ -18,12 +18,14 @@
         L.mapbox.accessToken = 'pk.eyJ1IjoidGVobm5uIiwiYSI6ImNpZzF4bHV4NDE0dTZ1M200YWxweHR0ZzcifQ.lpRRelYpT0ucv1NN08KUWQ';
         var map = L.mapbox.map('map').setView([16, 100], 6);
 
+        var mapbox = L.mapbox.tileLayer('mapbox.streets');
         var googleStandard = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&hl=th', {
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         });
 
         var basemap = {
-            'ถนน': googleStandard.addTo(map)
+            'Mapbox': mapbox.addTo(map),
+            'Google': googleStandard
         };
 
         var layer_line = L.mapbox.featureLayer();

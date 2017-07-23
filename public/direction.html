@@ -4,7 +4,6 @@
 <head>
     <link href='//api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
     <script src='//api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
-
     <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBbiMiQFGG0YZrDP--XiSr45tPtizB3e84">
     </script>
 </head>
@@ -17,12 +16,14 @@
         L.mapbox.accessToken = 'pk.eyJ1IjoidGVobm5uIiwiYSI6ImNpZzF4bHV4NDE0dTZ1M200YWxweHR0ZzcifQ.lpRRelYpT0ucv1NN08KUWQ';
         var map = L.mapbox.map('map').setView([16, 100], 6);
 
+        var mapbox = L.mapbox.tileLayer('mapbox.streets');
         var googleStandard = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&hl=th', {
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         });
 
         var basemap = {
-            'แผนที่ฐาน': googleStandard.addTo(map)
+            'Mapbox': mapbox.addTo(map),
+            'Google': googleStandard
         };
         var controlLayer = L.control.layers(basemap).addTo(map);
 

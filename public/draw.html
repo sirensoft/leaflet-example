@@ -4,73 +4,64 @@
 <head>
     <link href='//api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
     <script src='//api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
-    </script>
+
+    <!-- draw -->
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.css' rel='stylesheet' />
+
 </head>
 
 <body>
-    <script src="./lib/polyline.js"></script>
     <script src="//npmcdn.com/@turf/turf/turf.min.js"></script>
-    <script src="https://rawgithub.com/mylen/leaflet.TileLayer.WMTS/master/leaflet-tilelayer-wmts.js"></script>
     <div id='map' style="width: 1024px;height: 600px"></div>
     <script>
         L.mapbox.accessToken = 'pk.eyJ1IjoidGVobm5uIiwiYSI6ImNpZzF4bHV4NDE0dTZ1M200YWxweHR0ZzcifQ.lpRRelYpT0ucv1NN08KUWQ';
         var map = L.mapbox.map('map').setView([16, 100], 6);
-        L.control.scale({
-            'position': 'bottomleft',
-            'metric': true,
-            'imperial': false
-        }).addTo(map);
+
 
         // basemap
         var mapbox = L.mapbox.tileLayer('mapbox.streets');
         var googleStandard = L.tileLayer('http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&hl=th', {
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         });
-
-        var th_chote = new L.TileLayer.WMTS('http://go-tiles1.gistda.or.th/mapproxy/wmts/thaichote/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png', {
-            layer: 'thaichote',
-            matrixSet: 'GLOBAL_WEBMERCATOR',
-            format: 'image/png',
-            isBaseLayer: false,
-            style: 'default',
-            requestEncoding: 'REST',
-        });
+        var basemap = {
+            'mapbox': mapbox.addTo(map),
+            'google': googleStandard
+        };
+        // end base map
 
 
 
         //overlay
-        var flood_update = L.tileLayer.wms('http://tile.gistda.or.th/geoserver/wms', {
-            layers: "flood:flood_update",
-            transparent: true,
-            format: 'image/png',
-            tiles: true,
-            attribution: 'GISTDA @ Copyright 2016',
+        var overlays = {
 
-        }).addTo(map);
-
-
-
-        var flood_admin = L.tileLayer.wms('http://tile.gistda.or.th/geoserver/wms', {
-            layers: "flood:L0503_gistda_50k",
-            transparent: true,
-            format: 'image/png',
-            tiles: true,
-            attribution: 'GISTDA @ Copyright 2016',
-
-        }).addTo(map);
-
-
-
-        var basemap = {
-            'Mapbox': mapbox,
-            'Google': googleStandard.addTo(map),
-            'thaichote': th_chote
         };
-        var controlLayer = L.control.layers(basemap, {
-            'เขตปกครอง': flood_admin,
-            'flood': flood_update,
+        var controlLayer = L.control.layers(basemap, overlays).addTo(map);
 
+
+        //darwing
+        var featureGroup = L.featureGroup().addTo(map);
+        var drawControl = new L.Control.Draw({
+            draw: {
+                circle: false,
+                rectangle: false,
+                marker: false,
+                polyline: false
+            },
+            edit: {
+                featureGroup: featureGroup,
+                remove: true
+            }
         }).addTo(map);
+        map.on(L.Draw.Event.CREATED, function(e) {
+            var type = e.layerType,
+                layer = e.layer;
+            featureGroup.addLayer(layer);
+            console.log(layer.toGeoJSON());
+
+        });
+
+        //end drawing
     </script>
 </body>
 

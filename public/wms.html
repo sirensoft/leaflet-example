@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href='//api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+    <script src='//api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBbiMiQFGG0YZrDP--XiSr45tPtizB3e84">
+    </script>
+</head>
+
+<body>
+    <script src="./lib/polyline.js"></script>
+    <script src="//npmcdn.com/@turf/turf/turf.min.js"></script>
+    <div id='map' style="width: 660px;height: 460px"></div>
+    <script>
+        L.mapbox.accessToken = 'pk.eyJ1IjoidGVobm5uIiwiYSI6ImNpZzF4bHV4NDE0dTZ1M200YWxweHR0ZzcifQ.lpRRelYpT0ucv1NN08KUWQ';
+        var map = L.mapbox.map('map').setView([16, 100], 6);
+
+       
+
+        var mapbox = L.mapbox.tileLayer('mapbox.streets');
+        var googleStandard = L.tileLayer('http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}&hl=th', {
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        });
+        var thchot = L.tileLayer('http://go-tiles1.gistda.or.th/mapproxy/wmts/haichote/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png');
+
+         var flood_update = L.tileLayer.wms('http://tile.gistda.or.th/geoserver/wms?', {
+            layers: "flood:flood_update",
+            transparent: true,  
+            format: 'image/png',              
+            tiles: true,   
+
+        }).addTo(map);
+
+         var flood_tambon = L.tileLayer.wms('http://tile.gistda.or.th/geoserver/wms?', {
+            layers: "floodarea_tambon",
+            transparent: true,  
+            format: 'image/png',              
+            tiles: true,   
+
+        }).addTo(map);
+
+
+            var flood_percent = L.tileLayer.wms('http://tile.gistda.or.th/geoserver/wms?', {
+            layers: "flood:flood_percent",
+            transparent: true,  
+            format: 'image/png',              
+            tiles: true,   
+
+        }).addTo(map);
+
+
+
+        var basemap = {
+            'Mapbox': mapbox,
+            'Google': googleStandard.addTo(map),
+        };
+        var controlLayer = L.control.layers(basemap,{
+             'เขตปกครอง':flood_percent,
+            'flood':flood_update,
+            'tam':flood_tambon
+
+        }).addTo(map);
+
+        
+
+
+
+    </script>
+</body>
+
+</html>

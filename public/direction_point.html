@@ -58,11 +58,16 @@
 
 
 
-        direction('13.9345,102.93455', 'พิษณุโลก').then(function(result) {
+        direction('15.9345,102.93455', 'พิษณุโลก').then(function(result) {
 
             var points = polyline.decode(result.route);
             points.forEach(function(element) {
-                L.marker(element).addTo(map)
+                L.marker(element, {
+                    icon: L.mapbox.marker.icon({
+                        'marker-color': '#0000FF',
+                        'marker-size': 'small'
+                    })
+                }).addTo(map)
             });
         }, function(err) {
             alert(err)

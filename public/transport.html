@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Transport Station</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='map'></div>
+    <script>
+        L.mapbox.accessToken = 'pk.eyJ1IjoidGVobm5uIiwiYSI6ImNpZzF4bHV4NDE0dTZ1M200YWxweHR0ZzcifQ.lpRRelYpT0ucv1NN08KUWQ';
+        var map = L.mapbox.map('map', 'mapbox.streets').setView([16, 100], 9);
+
+        var markers = L.featureGroup().addTo(map);
+        var station_icon = L.mapbox.marker.icon({
+            'marker-symbol': 'bus',
+            'marker-color': '#0000FF'
+        });
+
+        var marker_station_1 = L.marker([19.85822370, 99.82126810], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_1.bindPopup("สถานีขนส่งจังหวัดเชียงรายแห่งใหม่");
+
+        var marker_station_2 = L.marker([19.68808920, 100.18999620], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_2.bindPopup("สถานีขนส่งผู้โดยสารเทศบาลตำบลเวียงเทิง");
+        var marker_station_3 = L.marker([19.90466420, 99.83447790], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_3.bindPopup("สถานีขนส่งผู้โดยสารเชียงราย");
+        var marker_station_4 = L.marker([20.40479160, 99.88213730], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_4.bindPopup("สถานีขนส่งผู้โดยสารอำเภอแม่สาย");
+        var marker_station_5 = L.marker([18.77412830, 100.76307410], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_5.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดน่าน");
+        var marker_station_6 = L.marker([18.56891960, 100.74921670], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_6.bindPopup("สถานีขนส่งผู้โดยสารอำเภอเวียงสา");
+        var marker_station_7 = L.marker([18.14862680, 100.15172820], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_7.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดแพร่");
+        var marker_station_8 = L.marker([19.29120180, 97.95953680], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_8.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดแม่ฮ่องสอน");
+        var marker_station_9 = L.marker([18.56948130, 99.00711750], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_9.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดลำพูน");
+        var marker_station_10 = L.marker([17.60953350, 100.08781770], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_10.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดอุตรดิตถ์");
+        var marker_station_11 = L.marker([18.27754920, 99.48329250], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_11.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดลำปาง");
+        var marker_station_12 = L.marker([18.79987260, 99.01769060], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_12.bindPopup("สถานีขนส่งอาเขตจังหวัดเชียงใหม่");
+        var marker_station_13 = L.marker([18.80007380, 98.98670460], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_13.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดเชียงใหม่ที่ 1");
+        var marker_station_14 = L.marker([16.47462510, 99.51018120], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_14.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดกำแพงเพชร");
+        var marker_station_15 = L.marker([15.70126440, 100.11873280], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_15.bindPopup("สถานีขนส่ง นครสวรรค์");
+        var marker_station_16 = L.marker([14.35194270, 100.61234870], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_16.bindPopup("สถานีขนส่ง พระนครศรีอยุธยา");
+        var marker_station_17 = L.marker([16.44770900, 100.33342240], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_17.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดพิจิตร");
+        var marker_station_18 = L.marker([16.81866190, 100.27903540], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_18.bindPopup("สถานีขนส่งจังหวัดพิษณุโลก");
+        var marker_station_19 = L.marker([16.81254630, 100.32999530], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_19.bindPopup("สถานีขนส่ง พิษณุโลก2");
+        var marker_station_20 = L.marker([16.42986370, 103.50186810], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_20.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดกาฬสินธุ์");
+        var marker_station_21 = L.marker([16.38989250, 102.80450840], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_21.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดขอนแก่นแห่งที่ 3");
+        var marker_station_22 = L.marker([16.43960970, 102.83331010], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_22.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดขอนแก่น");
+        var marker_station_23 = L.marker([16.64813840, 102.38081200], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_23.bindPopup("สถานีขนส่งผู้โดยสารอำเภอภูเวียง");
+        var marker_station_24 = L.marker([14.99576730, 103.09621170], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_24.bindPopup("สถานีขนส่งผู้โดยสารบุรีรัมย์");
+        var marker_station_25 = L.marker([14.63203480, 102.78092700], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_25.bindPopup("สถานีขนส่งผู้โดยสารอำเภอนางรอง");
+        var marker_station_26 = L.marker([14.61481080, 103.07880650], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_26.bindPopup("สถานีขนส่งผู้โดยสารอำเภอประโคนชัย");
+        var marker_station_27 = L.marker([16.18077790, 103.30132940], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_27.bindPopup("สถานีขนส่งจังหวัดมหาสารคาม");
+        var marker_station_28 = L.marker([15.81240940, 102.03539910], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_28.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดชัยภูมิ");
+        var marker_station_29 = L.marker([17.39758700, 104.77682800], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_29.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดนครพนม");
+        var marker_station_30 = L.marker([14.97803050, 102.09271380], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_30.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดนครราชสีมา แห่งที่ 1");
+        var marker_station_31 = L.marker([16.54585630, 104.71352070], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_31.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดมุกดาหาร");
+        var marker_station_32 = L.marker([15.80975160, 104.15689230], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_32.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดยโสธร");
+        var marker_station_33 = L.marker([16.05378910, 103.63985500], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_33.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดร้อยเอ็ด");
+        var marker_station_34 = L.marker([17.47757940, 101.72523340], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_34.bindPopup("สถานีขนส่งผู้โดยสาร จังหวัดเลย");
+        var marker_station_35 = L.marker([17.19137400, 104.09546900], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_35.bindPopup("สถานีขนส่งผู้โดยสารสกลนคร");
+        var marker_station_36 = L.marker([17.18008200, 104.11052860], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_36.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดสกลนครแห่งที่ 2");
+        var marker_station_37 = L.marker([17.15914770, 104.14341730], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_37.bindPopup("สถานีขนส่งผู้โดยจังหวัดสกลนคร");
+        var marker_station_38 = L.marker([14.88919070, 103.49649130], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_38.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดสุรินทร์");
+        var marker_station_39 = L.marker([15.10736590, 104.32803620], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_39.bindPopup("สถานีขนส่งจังหวัดศรีสะเกษ");
+        var marker_station_40 = L.marker([17.88535860, 102.75469460], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_40.bindPopup("สถานีขนส่งหนองคาย");
+        var marker_station_41 = L.marker([17.18851740, 102.43769740], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_41.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดหนองบัวลำภู");
+        var marker_station_42 = L.marker([17.40313430, 102.80005970], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_42.bindPopup("สถานีขนส่งผู้โดยสารอุดรธานี");
+        var marker_station_43 = L.marker([17.41453280, 102.76431580], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_43.bindPopup("สถานีขนส่งผู้โดยสารอุดรธานีแห่งที่ 2");
+        var marker_station_44 = L.marker([15.27265620, 104.83735900], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_44.bindPopup("สถานีขนส่งผู้โดยสารอุบลราชธานี");
+        var marker_station_45 = L.marker([15.88660400, 104.62209810], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_45.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดอำนาจเจริญ");
+        var marker_station_46 = L.marker([15.19722400, 100.12400820], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_46.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดชัยนาท");
+        var marker_station_47 = L.marker([14.00571330, 100.61437940], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_47.bindPopup("สถานีขนส่งผู้โดยสารรังสิต ปทุมธานี");
+        var marker_station_48 = L.marker([16.40835800, 101.16171800], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_48.bindPopup("สถานีขนส่งผู้โดยสาร จังหวัดเพชรบูรณ์");
+        var marker_station_49 = L.marker([14.82391420, 100.64754780], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_49.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดลพบุรี");
+        var marker_station_50 = L.marker([13.40601600, 99.99980700], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_50.bindPopup("สถานีขนส่งผู้โดยสาร จ.สมุทรสงคราม");
+        var marker_station_51 = L.marker([13.55617390, 100.27340300], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_51.bindPopup("สถานีขนส่งจังหวัดสมุทรสาคร");
+        var marker_station_52 = L.marker([14.89303090, 100.39862810], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_52.bindPopup("สถานีขนส่งจังหวัดสิงห์บุรี");
+        var marker_station_53 = L.marker([17.01451020, 99.81230750], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_53.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดสุโขทัย");
+        var marker_station_54 = L.marker([14.44783300, 100.13213400], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_54.bindPopup("สถานีขนส่ง จังหวัดสุพรรณบุรี");
+        var marker_station_55 = L.marker([14.47384560, 100.12547320], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_55.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดสุพรรณบุรี");
+        var marker_station_56 = L.marker([14.52340140, 100.91891550], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_56.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดสระบุรี");
+        var marker_station_57 = L.marker([15.38830810, 100.02300910], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_57.bindPopup("สถานีขนส่งจังหวัดอุทัยธานี");
+        var marker_station_58 = L.marker([13.69242310, 101.05411650], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_58.bindPopup("สถานีขนส่งผู้โดยสาร จ.ฉะเชิงเทรา");
+        var marker_station_59 = L.marker([13.35496770, 100.98353600], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_59.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดชลบุรี");
+        var marker_station_60 = L.marker([12.25381880, 102.51393800], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_60.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดตราด");
+        var marker_station_61 = L.marker([14.05863200, 101.37293860], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_61.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดปราจีนบุรี");
+        var marker_station_62 = L.marker([12.68386090, 101.27369190], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_62.bindPopup("ขนส่งผู้โดยสารจังหวัดระยอง สถานี");
+        var marker_station_63 = L.marker([13.81858340, 102.06801510], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_63.bindPopup("ขนส่งผู้โดยสารจังหวัดสระแก้ว สถานี");
+        var marker_station_64 = L.marker([14.02098910, 99.53434740], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_64.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดกาญจนบุรี");
+        var marker_station_65 = L.marker([16.88330540, 99.12839790], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_65.bindPopup("สถานีขนส่งจังหวัดตาก");
+        var marker_station_66 = L.marker([11.81562000, 99.77750700], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_66.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดประจวบคีรีขันธ์");
+        var marker_station_67 = L.marker([13.11172610, 99.94780900], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_67.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดเพชรบุรี");
+        var marker_station_68 = L.marker([13.53086820, 99.80694650], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_68.bindPopup("สถานีขนส่งจังหวัดราชบุรี");
+        var marker_station_69 = L.marker([13.52573600, 99.77870270], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_69.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดราชบุรี แห่งที่ 2");
+        var marker_station_70 = L.marker([8.09949530, 98.90611540], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_70.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดกระบี่");
+        var marker_station_71 = L.marker([10.48687770, 99.12084970], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_71.bindPopup("สถานีขนส่งผู้โดยสารปฐมพร จังหวัดชุมพร");
+        var marker_station_72 = L.marker([10.49730000, 99.17428100], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_72.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดชุมพร");
+        var marker_station_73 = L.marker([10.48720200, 99.12264500], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_73.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดชุมพร");
+        var marker_station_74 = L.marker([7.56847000, 99.60553500], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_74.bindPopup("สถานีขนส่งตรัง");
+        var marker_station_75 = L.marker([8.43586420, 99.95254160], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_75.bindPopup("สถานีขนส่ง จังหวัดนครศรีธรรมราช");
+        var marker_station_76 = L.marker([8.15993400, 99.72447800], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_76.bindPopup("สถานีขนส่ง จ.นครศรีธรรมราช");
+        var marker_station_77 = L.marker([6.41087790, 101.82596740], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_77.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดนราธิวาส");
+        var marker_station_78 = L.marker([6.86233110, 101.26971100], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_78.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดปัตตานี");
+        var marker_station_79 = L.marker([19.17247960, 99.89821770], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_79.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดพะเยา");
+        var marker_station_80 = L.marker([19.17261300, 99.89823200], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_80.bindPopup("สถานีขนส่งโดยสารจังหวัดพะเยา");
+        var marker_station_81 = L.marker([19.17253710, 99.89816140], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_81.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดพะเยา");
+        var marker_station_82 = L.marker([7.63258690, 100.04518500], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_82.bindPopup("สถานีขนส่งจังหวัดพัทลุง");
+        var marker_station_83 = L.marker([7.88407000, 98.39583600], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_83.bindPopup("สถานีขนส่งภูเก็ต (Bus Station #1)");
+        var marker_station_84 = L.marker([7.91755430, 98.39552710], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_84.bindPopup("สถานีขนส่งผู้โดยสารแห่งที่2 จังหวัดภูเก็ต");
+        var marker_station_85 = L.marker([7.88332190, 98.39370410], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_85.bindPopup("ขนส่งผู้โดยสารจังหวัดภูเก็ต สถานี");
+        var marker_station_86 = L.marker([9.95838400, 98.62161500], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_86.bindPopup("สถานีขนส่งระนอง");
+        var marker_station_87 = L.marker([9.95502930, 98.63885050], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_87.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดระนอง");
+        var marker_station_88 = L.marker([6.59704640, 100.06649980], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_88.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดสตูล");
+        var marker_station_89 = L.marker([7.18641920, 100.59382320], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_89.bindPopup("สถานีขนส่งผู้โดยสาร สงขลา");
+        var marker_station_90 = L.marker([9.14355000, 99.33083400], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_90.bindPopup("สถานีขนส่งสุราษฎร์ธานี");
+        var marker_station_91 = L.marker([6.55597160, 101.26825030], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_91.bindPopup("สถานีขนส่งผู้โดยสารจังหวัดยะลา");
+        var marker_station_92 = L.marker([8.46309740, 98.53204650], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_92.bindPopup("สถานีขนส่งผู้โดยสาร อำเภอเมีอง จังหวัดพังงา");
+        var marker_station_93 = L.marker([8.87023430, 98.35120390], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_93.bindPopup("สถานีขนส่งผู้โดยสารอำเภอตะกั่วป่า");
+        var marker_station_94 = L.marker([9.52102840, 99.94114870], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_94.bindPopup("สถานีขนส่งเกาะสมุย");
+        var marker_station_95 = L.marker([6.99466350, 100.48194910], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_95.bindPopup("สถานีขนส่งหาดใหญ่");
+        var marker_station_96 = L.marker([6.99326500, 100.48344600], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_96.bindPopup("สถานีขนส่งหาดใหญ่");
+        var marker_station_97 = L.marker([6.02185750, 101.95001920], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_97.bindPopup("สถานีขนส่งผู้โดยสารอำเภอสุไหงโกลก");
+        var marker_station_98 = L.marker([13.98591170, 101.76026680], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_98.bindPopup("สถานีขนส่งผู้โดยสารกบินทร์บุรี");
+        var marker_station_99 = L.marker([14.84098240, 99.68868580], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_99.bindPopup("สถานีขนส่งผู้โดยสารอำเภอด่านช้าง");
+        var marker_station_100 = L.marker([8.18758100, 99.60986500], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_100.bindPopup("สถานีขนส่งนครศรีธรรมราช");
+        var marker_station_101 = L.marker([9.14509730, 99.32402060], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_101.bindPopup("สถานีขนส่งผู้โดยสารย่อย จ.สุราษฎ์ธานี");
+        var marker_station_102 = L.marker([9.02995310, 99.21616850], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_102.bindPopup("สถานีขนส่งผู้โดยสาร จ.สุราษฎ์ธานี");
+        var marker_station_103 = L.marker([15.13323800, 105.46219200], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_103.bindPopup("สถานีขนส่งผู้โดยสารด่านช่องเม็ก");
+        var marker_station_104 = L.marker([14.89829600, 105.06935000], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_104.bindPopup("สถานีขนส่งผู้โดยสาร จ.อุบลราชธานี อำเภอเดชอุดม");
+        var marker_station_105 = L.marker([14.72937690, 102.16880620], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_105.bindPopup("สถานีขนส่งผู้โดยสาร อำเภอโชคชัย จ.นครราชสีมา");
+        var marker_station_106 = L.marker([15.21306160, 102.48226940], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_106.bindPopup("สถานีขนส่งผู้โดยสาร อำเภอพิมาย จ.นครราชสีมา");
+        var marker_station_107 = L.marker([17.13485600, 102.94417300], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_107.bindPopup("สถานีขนส่งผู้โดยสารพันดอน จ.อุดรธานี");
+        var marker_station_108 = L.marker([12.61185970, 102.10589560], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_108.bindPopup("สถานีขนส่งจันทบุรี");
+        var marker_station_109 = L.marker([16.49582700, 100.47736700], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_109.bindPopup("สถานีขนส่งผู้โดยสารสากเหล็ก จ.พิจิตร");
+        var marker_station_110 = L.marker([16.52750100, 100.14519300], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_110.bindPopup("สถานีขนส่งผู้โดยสาร อ.วชิรบารมี่ จ.พิจิตร");
+        var marker_station_111 = L.marker([15.26228000, 100.35026400], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_111.bindPopup("สถานีขนส่งผู้โดยสาร อ.ตาคลี จ.นครสวรรค์");
+        var marker_station_112 = L.marker([15.86954800, 100.60677900], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_112.bindPopup("สถานีขนส่งผู้โดยสาร อ.หนองบัว จ.นครสวรรค์");
+        var marker_station_113 = L.marker([15.74996200, 99.78487400], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_113.bindPopup("สถานีขนส่งผู้โดยสาร อ.ลาดยาว จ.นครสวรรค์");
+        var marker_station_114 = L.marker([14.63405250, 103.85964120], {
+            icon: station_icon
+        }).addTo(markers);
+        marker_station_114.bindPopup("สถานีขนส่งผู้โดยสารอำเภอสังขะ จ.สุรินทร์<BR>");
+
+        console.log(markers.toGeoJSON());
+    </script>
+</body>
+
+</html>
